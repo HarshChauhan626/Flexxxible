@@ -39,10 +39,12 @@ export const authOptions: NextAuthOptions = {
   },
   callbacks: {
     async jwt({ token, user, account }) {
+      console.log("Token returned in jwt is ",token,user,account);
       if (account) {         
         const userLoggedIn = await SignToken(user?.email as string);
         token.loggedUser = userLoggedIn;
       }
+      console.log("Token returned in jwt is ",token,user,account);
       return token;
     },
     async session({ session }) {
@@ -71,7 +73,10 @@ export const authOptions: NextAuthOptions = {
       try {
         const userExists = await getUser(user?.email as string) as { user?: UserProfile }
         
-        if (!userExists.user) {
+        console.log("User exists coming is",userExists);
+
+        if (userExists===undefined || !userExists.user) {
+          console.log("Creating user");
           await createUser(user.name as string, user.email as string, user.image as string)
         }
 
