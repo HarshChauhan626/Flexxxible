@@ -1,0 +1,12 @@
+@keyframes slideRight {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.animateSlideRight {
+  animation: slideRight 30s linear infinite;
+}
